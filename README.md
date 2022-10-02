@@ -1,2 +1,2 @@
 # PWNTHEON
-pwntheon game
+pwntheon game :)
