@@ -39,7 +39,6 @@ public class playerHealth : MonoBehaviour
     }
 
     void killPlayer() {
-        //SceneManager.loadScene("Main menu");
         gameOverCanvas.GetComponent<Canvas>().enabled = true;
         Destroy(this.gameObject);
 
