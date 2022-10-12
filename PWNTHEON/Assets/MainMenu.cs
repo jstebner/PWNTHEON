@@ -10,4 +10,9 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Play Game!");
         SceneManager.LoadScene("Boss1");
     }
+
+    public void QuitGame() {
+        Debug.Log("Quit Game");
+        Application.Quit();
+    }
 }

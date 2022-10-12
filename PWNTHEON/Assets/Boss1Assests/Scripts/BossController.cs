@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 struct FireBallStruct {
@@ -43,8 +44,8 @@ public class BossController : MonoBehaviour
     }
 
     private void killBoss() {
-        //SceneManager.loadScene("Main menu");
         Destroy(this.gameObject);
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void newBossFireball(Vector3 playerPos, Vector3 bossPos) {
