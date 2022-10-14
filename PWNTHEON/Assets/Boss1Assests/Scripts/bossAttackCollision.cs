@@ -11,6 +11,6 @@ public class bossAttackCollision : MonoBehaviour
         } else {
             Destroy(this.gameObject);
         }
-        Debug.Log("hit " + col.gameObject.name);
+        //Debug.Log("hit " + col.gameObject.name);
     }
 }

@@ -1,15 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerWeapon : MonoBehaviour
 {
-    private float swingCooldown = 0;
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
     private int swordDamage = 10;
 
+    public Slider slider;
+    public Image fill;
+
+    void Start() {
+        slider.minValue = 0f;
+        slider.maxValue = 3f;
+        slider.value = 3f;
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -20,7 +28,7 @@ public class playerWeapon : MonoBehaviour
     }
 
     private void attack() {
-        if (swingCooldown <= 0) {
+        if (slider.value == slider.maxValue) {
             Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
             foreach (Collider2D enemy in hits) {
                 if (enemy.tag == "Boss") {
@@ -28,7 +36,7 @@ public class playerWeapon : MonoBehaviour
                     enemy.GetComponent<BossController>().damageBoss(swordDamage);
                 }
             }
-            swingCooldown = 3f;
+            resetAttackMeter();
         }
         return;
     }
@@ -42,6 +50,10 @@ public class playerWeapon : MonoBehaviour
     }
 
     private void manageCooldowns() {
-        swingCooldown -= Time.deltaTime;
+        slider.value += Time.deltaTime;
+    }
+
+    private void resetAttackMeter() {
+        slider.value = slider.minValue;
     }
 }

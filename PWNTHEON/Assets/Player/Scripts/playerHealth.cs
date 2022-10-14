@@ -8,12 +8,15 @@ public class playerHealth : MonoBehaviour
     private int health;
     private int maxHealth;
     public bool canTakeDamage;
-    public GameObject gameOverCanvas;
+    MenuController menuController;
     // Start is called before the first frame update
+
+    void Awake() {
+        menuController = GameObject.Find("Menus").GetComponent<MenuController>();
+    }
+
     void Start()
     {
-        gameOverCanvas = GameObject.Find("Menus");
-        gameOverCanvas.GetComponent<Canvas>().enabled = false;
         canTakeDamage = true;
         health = 100;
         hp.setMaxHealth(100);
@@ -39,8 +42,7 @@ public class playerHealth : MonoBehaviour
     }
 
     void killPlayer() {
-        gameOverCanvas.GetComponent<Canvas>().enabled = true;
+        menuController.setGameOver();
         Destroy(this.gameObject);
-
     }
 }

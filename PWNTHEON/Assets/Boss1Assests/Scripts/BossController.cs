@@ -18,6 +18,11 @@ public class BossController : MonoBehaviour
     public GameObject bossFireball;
     private float bossFireballSpeed = 5f;
     private List<FireBallStruct> activeFireballs = new List<FireBallStruct>();
+    MenuController menuController;
+
+    void Awake() {
+        menuController = GameObject.Find("Menus").GetComponent<MenuController>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -44,8 +49,8 @@ public class BossController : MonoBehaviour
     }
 
     private void killBoss() {
+        menuController.setGameWon();
         Destroy(this.gameObject);
-        SceneManager.LoadScene("MainMenu");
     }
 
     public void newBossFireball(Vector3 playerPos, Vector3 bossPos) {

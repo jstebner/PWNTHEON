@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class movement : MonoBehaviour
 {
     private float moveSpeed = 25f;
     private float maxDodgeSpeed = 100f;
     private float dodgeTimer = 0f;
-    private float dodgeCooldown = 0f;
     public Rigidbody2D playerRB;
     private Vector2 dodgeDir;
     private playerHealth playerHealth;
@@ -17,6 +17,8 @@ public class movement : MonoBehaviour
     private float immunityTime;
     private float maxImmunityTime = 0.8f;
 
+    public Slider slider;
+    public Image fill;
 
     private State state;
     private enum State {
@@ -31,6 +33,9 @@ public class movement : MonoBehaviour
         playerRB = GetComponent<Rigidbody2D>();
         playerHealth = GetComponent<playerHealth>();
         playerSprite = GetComponent<SpriteRenderer>();
+        slider.minValue = 0f;
+        slider.maxValue = 3f;
+        slider.value = 3f;
     }
 
     // Update is called once per frame
@@ -38,9 +43,7 @@ public class movement : MonoBehaviour
     {
         if (state == State.Normal) {
             handleMovement();
-            if (dodgeCooldown > 0) {
-                dodgeCooldown -= Time.deltaTime;
-            }
+            slider.value += Time.deltaTime;
         } 
         else if (state == State.Dodge) {
             handleDodge();
@@ -70,10 +73,10 @@ public class movement : MonoBehaviour
             moveY = -1f;
         }
         if (Input.GetKey(KeyCode.LeftShift)) {
-            if (dodgeCooldown <= 0) {
+            if (slider.value == slider.maxValue) {
                 dodgeDir = new Vector2(moveX, moveY).normalized;
                 dodgeTimer = 0.08f;
-                dodgeCooldown = 3f;
+                resetDodgeCooldown();
                 state = State.Dodge;
             }
         }
@@ -111,5 +114,9 @@ public class movement : MonoBehaviour
             dodgeTimer = 0f;
         }
         immunityTime = maxImmunityTime;
+    }
+
+    void resetDodgeCooldown() {
+        slider.value = slider.minValue;
     }
 }
