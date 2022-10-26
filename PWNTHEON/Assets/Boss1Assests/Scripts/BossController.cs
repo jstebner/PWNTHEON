@@ -15,9 +15,12 @@ public class BossController : MonoBehaviour
     private int health;
     private int maxHealth;
     public bool canTakeDamage;
-    public GameObject bossFireball;
+    public GameObject bossFireballPrefab;
+    public GameObject physicalSlamPrefab;
     private float bossFireballSpeed = 5f;
+    private float slamSizeIncreaseRate = 8f;
     private List<FireBallStruct> activeFireballs = new List<FireBallStruct>();
+    private List<GameObject> activeSlams = new List<GameObject>();
     MenuController menuController;
 
     void Awake() {
@@ -34,6 +37,12 @@ public class BossController : MonoBehaviour
 
     void FixedUpdate() {
         moveFireballs();
+        updateSlams();
+        if (Input.GetKeyDown(KeyCode.J)) {
+            if (activeSlams.Count == 0) {
+                newPhysicalSlam();
+            }
+        }
     }
 
     public void damageBoss(int lostHealth) {
@@ -55,7 +64,7 @@ public class BossController : MonoBehaviour
 
     public void newBossFireball(Vector3 playerPos, Vector3 bossPos) {
         Vector3 direction = (playerPos - bossPos).normalized;
-        GameObject fireballObject = Instantiate(bossFireball, bossPos + direction, Quaternion.identity);
+        GameObject fireballObject = Instantiate(bossFireballPrefab, bossPos + direction, Quaternion.identity);
         Physics2D.IgnoreCollision(fireballObject.GetComponent<Collider2D>(), this.GetComponent<Collider2D>());
         FireBallStruct currentFireball;
         currentFireball.fireball = fireballObject;
@@ -72,5 +81,21 @@ public class BossController : MonoBehaviour
                 activeFireballs[i].fireball.transform.position += activeFireballs[i].direction * bossFireballSpeed * Time.deltaTime;
             }
         }
+    }
+
+    private void updateSlams() {
+        for (int i = activeSlams.Count - 1; i >= 0; i--) {
+            if (activeSlams[i].transform.localScale.x >= 37) {
+                Destroy(activeSlams[i]);
+                activeSlams.RemoveAt(i);
+            } else {
+                activeSlams[i].transform.localScale += new Vector3(slamSizeIncreaseRate * Time.deltaTime, 0.389375f * slamSizeIncreaseRate * Time.deltaTime, slamSizeIncreaseRate * Time.deltaTime);
+            }
+        }
+    }
+
+    private void newPhysicalSlam() {
+        GameObject slamObject = Instantiate(physicalSlamPrefab, new Vector2(0.14f, 0.62f), Quaternion.identity);
+        activeSlams.Add(slamObject);
     }
 }

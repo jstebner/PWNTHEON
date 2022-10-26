@@ -8,6 +8,8 @@ public class bossAttackCollision : MonoBehaviour
         if (col.gameObject.tag == "Player") {
             col.gameObject.GetComponent<playerHealth>().damagePlayer(10);
             Destroy(this.gameObject);
+        } else if (col.gameObject.tag == "Ability") {
+            Physics2D.IgnoreCollision(col, this.GetComponent<Collider2D>());
         } else {
             Destroy(this.gameObject);
         }

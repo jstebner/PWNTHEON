@@ -3,7 +3,10 @@ guid: f9ed1c5d315a2fc4db3b605b69d753a3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - hp: {instanceID: 0}
+  - bossFireball: {fileID: 342291751927479896, guid: ff1d763827d356b4aae7209138fe14e5, type: 3}
+  - physicalSlamPrefab: {fileID: 1080800654025324995, guid: 0240b3d0a0a2da74eb45353cbc664fc8, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
