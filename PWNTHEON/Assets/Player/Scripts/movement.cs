@@ -37,6 +37,7 @@ public class movement : MonoBehaviour
         slider.minValue = 0f;
         slider.maxValue = 3f;
         slider.value = 3f;
+        weapon.flipX = true;
     }
 
     // Update is called once per frame
@@ -89,12 +90,14 @@ public class movement : MonoBehaviour
             playerRB.AddForce(new Vector2(moveX, moveY).normalized * moveSpeed);
             if (moveX > 0) {
                 playerSprite.flipX = true;
-                weapon.flipX = true;
-                attackPoint.position = new Vector3(playerRB.position.x + .42f, playerRB.position.y + 0.75f, 0f);
+                //weapon.flipX = true;
+                weapon.sortingOrder = 1;
+                //attackPoint.position = new Vector3(playerRB.position.x + .42f, playerRB.position.y + 0.75f, 0f);
             } else if (moveX < 0) {
                 playerSprite.flipX = false;
-                weapon.flipX = false;
-                attackPoint.position = new Vector3(playerRB.position.x - 0.39f, playerRB.position.y + 0.75f, 0f);
+                //weapon.flipX = false;
+                weapon.sortingOrder = 0;
+                //attackPoint.position = new Vector3(playerRB.position.x - 0.39f, playerRB.position.y + 0.75f, 0f);
             }
         }
 
