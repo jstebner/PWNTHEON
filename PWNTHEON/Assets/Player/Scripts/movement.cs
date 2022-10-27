@@ -8,6 +8,7 @@ public class movement : MonoBehaviour
     private float moveSpeed = 25f;
     private float maxDodgeSpeed = 100f;
     private float dodgeTimer = 0f;
+    private const float TimeDodge = 0.08f;
     public Rigidbody2D playerRB;
     private Vector2 dodgeDir;
     private playerHealth playerHealth;
@@ -15,7 +16,7 @@ public class movement : MonoBehaviour
     public SpriteRenderer weapon;
     public Transform attackPoint;
     private float immunityTime;
-    private float maxImmunityTime = 0.8f;
+    private float maxImmunityTime = TimeDodge;
 
     public Slider slider;
     public Image fill;
@@ -75,7 +76,7 @@ public class movement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift)) {
             if (slider.value == slider.maxValue) {
                 dodgeDir = new Vector2(moveX, moveY).normalized;
-                dodgeTimer = 0.08f;
+                dodgeTimer = TimeDodge;
                 resetDodgeCooldown();
                 state = State.Dodge;
             }
@@ -103,15 +104,22 @@ public class movement : MonoBehaviour
         if (dodgeDir.x == 0 && dodgeDir.y == 0) {
             //no direction
             state = State.Normal;
+
+            Quaternion target = Quaternion.Euler(0, 0, 0);
+            transform.rotation = Quaternion.Slerp(transform.rotation, target, 1);
             immunityTime = 0f;
             return;
         }
         if (dodgeTimer >= 0){
+            transform.Rotate(new Vector3(0, 0, -360 * (Time.deltaTime/TimeDodge) * (dodgeDir.x/Mathf.Abs(dodgeDir.x))));
             playerRB.AddForce(dodgeDir * maxDodgeSpeed);
             dodgeTimer -= Time.deltaTime;
+            // Add rotation here
         } else {
             state = State.Normal;
             dodgeTimer = 0f;
+            Quaternion target = Quaternion.Euler(0, 0, 0);
+            transform.rotation = Quaternion.Slerp(transform.rotation, target, 1);
         }
         immunityTime = maxImmunityTime;
     }
