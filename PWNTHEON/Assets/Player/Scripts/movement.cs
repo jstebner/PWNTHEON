@@ -104,14 +104,14 @@ public class movement : MonoBehaviour
         if (dodgeDir.x == 0 && dodgeDir.y == 0) {
             //no direction
             state = State.Normal;
-
             Quaternion target = Quaternion.Euler(0, 0, 0);
             transform.rotation = Quaternion.Slerp(transform.rotation, target, 1);
             immunityTime = 0f;
             return;
         }
         if (dodgeTimer >= 0){
-            transform.Rotate(new Vector3(0, 0, -360 * (Time.deltaTime/TimeDodge) * (dodgeDir.x/Mathf.Abs(dodgeDir.x))));
+            float direction = playerSprite.flipX ? 1f : -1f;
+            transform.Rotate(new Vector3(0, 0, -360 * (Time.deltaTime/TimeDodge) * direction));
             playerRB.AddForce(dodgeDir * maxDodgeSpeed);
             dodgeTimer -= Time.deltaTime;
             // Add rotation here
