@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2471782335539473350}
   - component: {fileID: 6329489535891363946}
   - component: {fileID: 7682945359108091095}
-  - component: {fileID: 8087095861144957713}
+  - component: {fileID: 8467596614603808079}
   m_Layer: 0
-  m_Name: bossSlamPrefab
+  m_Name: bossSoundBlastPrefab
   m_TagString: Ability
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: -2
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
+  m_Color: {r: 0.509434, g: 0.36078432, b: 0.7882353, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -131,7 +131,7 @@ PolygonCollider2D:
       - {x: 0.40234375, y: 0.29296875}
       - {x: 0.29296875, y: 0.40234375}
       - {x: 0.15234375, y: 0.47265625}
---- !u!114 &8087095861144957713
+--- !u!114 &8467596614603808079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,6 +140,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1080800654025324995}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7039325f945ce1c4ebccef57b13df6ab, type: 3}
+  m_Script: {fileID: 11500000, guid: 03a4dc14deeb3f942b3393c5b605762a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

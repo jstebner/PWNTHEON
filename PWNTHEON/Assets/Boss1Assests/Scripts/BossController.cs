@@ -9,6 +9,11 @@ struct FireBallStruct {
     public Vector3 direction;
 }
 
+struct SlamStruct {
+    public GameObject slam;
+    public float increaseSizeRate;
+}
+
 public class BossController : MonoBehaviour
 {
     public healthbar hp;
@@ -16,11 +21,13 @@ public class BossController : MonoBehaviour
     private int maxHealth;
     public bool canTakeDamage;
     public GameObject bossFireballPrefab;
-    public GameObject physicalSlamPrefab;
+    public GameObject slamPrefab;
+    public GameObject soundBlastPrefab;
     private float bossFireballSpeed = 5f;
-    private float slamSizeIncreaseRate = 8f;
+    private float physicalSlamSizeIncreaseRate = 12f;
+    private float abilitySlamSizeIncreaseRate = 7f;
     private List<FireBallStruct> activeFireballs = new List<FireBallStruct>();
-    private List<GameObject> activeSlams = new List<GameObject>();
+    private List<SlamStruct> activeSlams = new List<SlamStruct>();
     MenuController menuController;
 
     void Awake() {
@@ -38,9 +45,14 @@ public class BossController : MonoBehaviour
     void FixedUpdate() {
         moveFireballs();
         updateSlams();
-        if (Input.GetKeyDown(KeyCode.J)) {
+        if (Input.GetKey(KeyCode.J)) {
             if (activeSlams.Count == 0) {
                 newPhysicalSlam();
+            }
+        }
+        if (Input.GetKey(KeyCode.K)) {
+            if (activeSlams.Count == 0) {
+                newSoundBlast();
             }
         }
     }
@@ -84,18 +96,34 @@ public class BossController : MonoBehaviour
     }
 
     private void updateSlams() {
+        float incSizeRate = 0f;
         for (int i = activeSlams.Count - 1; i >= 0; i--) {
-            if (activeSlams[i].transform.localScale.x >= 37) {
-                Destroy(activeSlams[i]);
+            if (activeSlams[i].slam.transform.localScale.x >= 37) {
+                Destroy(activeSlams[i].slam);
                 activeSlams.RemoveAt(i);
             } else {
-                activeSlams[i].transform.localScale += new Vector3(slamSizeIncreaseRate * Time.deltaTime, 0.389375f * slamSizeIncreaseRate * Time.deltaTime, slamSizeIncreaseRate * Time.deltaTime);
+                incSizeRate = activeSlams[i].increaseSizeRate;
+                activeSlams[i].slam.transform.localScale += new Vector3(incSizeRate * Time.deltaTime, 0.389375f * incSizeRate * Time.deltaTime, incSizeRate * Time.deltaTime);
+                SlamStruct slam = activeSlams[i];
+                slam.increaseSizeRate += 0.1f;
+                activeSlams[i] = slam;
             }
         }
     }
 
     private void newPhysicalSlam() {
-        GameObject slamObject = Instantiate(physicalSlamPrefab, new Vector2(0.14f, 0.62f), Quaternion.identity);
-        activeSlams.Add(slamObject);
+        GameObject slamObject = Instantiate(slamPrefab, new Vector2(0.14f, 0.62f), Quaternion.identity);
+        SlamStruct currentSlam;
+        currentSlam.slam = slamObject;
+        currentSlam.increaseSizeRate = physicalSlamSizeIncreaseRate;
+        activeSlams.Add(currentSlam);
+    }
+
+    private void newSoundBlast() {
+        GameObject slamObject = Instantiate(soundBlastPrefab, new Vector2(0.14f, 0.62f), Quaternion.identity);
+        SlamStruct currentSlam;
+        currentSlam.slam = slamObject;
+        currentSlam.increaseSizeRate = abilitySlamSizeIncreaseRate;
+        activeSlams.Add(currentSlam);
     }
 }
