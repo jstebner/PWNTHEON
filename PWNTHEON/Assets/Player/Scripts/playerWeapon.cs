@@ -30,6 +30,7 @@ public class playerWeapon : MonoBehaviour
         float rotZ = Mathf.Atan2(rotation.y,rotation.x) * Mathf.Rad2Deg;
         weapon.transform.rotation = Quaternion.Euler(0,0,rotZ);
         attackPoint.position = Vector3.MoveTowards(attackPoint.position, weapon.bounds.center, 1);
+        
         if (Input.GetKey(KeyCode.Mouse0)) {
             attack();
         }

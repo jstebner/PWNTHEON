@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class movement : MonoBehaviour
 {
+    private Camera cam;
+    private Vector2 mousePos;
     private float moveSpeed = 25f;
-    private float maxDodgeSpeed = 100f;
+    private float maxDodgeSpeed = 150f;
     private float dodgeTimer = 0f;
     private const float TimeDodge = 0.08f;
     public Rigidbody2D playerRB;
@@ -34,6 +36,7 @@ public class movement : MonoBehaviour
         playerRB = GetComponent<Rigidbody2D>();
         playerHealth = GetComponent<playerHealth>();
         playerSprite = GetComponent<SpriteRenderer>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         slider.minValue = 0f;
         slider.maxValue = 3f;
         slider.value = 3f;
@@ -83,22 +86,31 @@ public class movement : MonoBehaviour
             }
         }
 
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 lookDirection = mousePos - (Vector2)transform.position;
+        if (lookDirection.x > 0f) {
+            playerSprite.flipX = true;
+            weapon.sortingOrder = 1;
+        } else if (lookDirection.x < 0f) {
+            playerSprite.flipX = false;
+            weapon.sortingOrder = 0;
+        }
         if (moveX == 0 && moveY == 0) {
             //Idle
             return;
         } else {
             playerRB.AddForce(new Vector2(moveX, moveY).normalized * moveSpeed);
-            if (moveX > 0) {
-                playerSprite.flipX = true;
-                //weapon.flipX = true;
-                weapon.sortingOrder = 1;
-                //attackPoint.position = new Vector3(playerRB.position.x + .42f, playerRB.position.y + 0.75f, 0f);
-            } else if (moveX < 0) {
-                playerSprite.flipX = false;
-                //weapon.flipX = false;
-                weapon.sortingOrder = 0;
-                //attackPoint.position = new Vector3(playerRB.position.x - 0.39f, playerRB.position.y + 0.75f, 0f);
-            }
+            // if (moveX > 0) {
+            //     playerSprite.flipX = true;
+            //     weapon.flipX = true;
+            //     weapon.sortingOrder = 1;
+            //     attackPoint.position = new Vector3(playerRB.position.x + .42f, playerRB.position.y + 0.75f, 0f);
+            // } else if (moveX < 0) {
+            //     playerSprite.flipX = false;
+            //     weapon.flipX = false;
+            //     weapon.sortingOrder = 0;
+            //     attackPoint.position = new Vector3(playerRB.position.x - 0.39f, playerRB.position.y + 0.75f, 0f);
+            // }
         }
 
     }
