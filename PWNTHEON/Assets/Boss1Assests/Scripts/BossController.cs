@@ -111,7 +111,7 @@ public class BossController : MonoBehaviour
         }
     }
 
-    private void newPhysicalSlam() {
+    public void newPhysicalSlam() {
         GameObject slamObject = Instantiate(slamPrefab, new Vector2(0.14f, 0.62f), Quaternion.identity);
         SlamStruct currentSlam;
         currentSlam.slam = slamObject;
@@ -119,7 +119,7 @@ public class BossController : MonoBehaviour
         activeSlams.Add(currentSlam);
     }
 
-    private void newSoundBlast() {
+    public void newSoundBlast() {
         GameObject slamObject = Instantiate(soundBlastPrefab, new Vector2(0.14f, 0.62f), Quaternion.identity);
         SlamStruct currentSlam;
         currentSlam.slam = slamObject;
