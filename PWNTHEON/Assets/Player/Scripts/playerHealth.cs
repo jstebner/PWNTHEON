@@ -5,7 +5,6 @@ using UnityEngine;
 public class playerHealth : MonoBehaviour
 {
     public healthbar hp;
-    private int health;
     private int maxHealth;
     public bool canTakeDamage;
     public bool dodging;
@@ -20,7 +19,6 @@ public class playerHealth : MonoBehaviour
     void Start()
     {
         canTakeDamage = true;
-        health = 100;
         hp.setMaxHealth(100);
     }
 
@@ -45,15 +43,16 @@ public class playerHealth : MonoBehaviour
             //         Debug.Log("damage was NOT prevented while dodging");
             //     }
             // }
-            health -= lostHealth;
+            float updatedHealth = hp.getHeath() - lostHealth;
             canTakeDamage = false;
             immunityTimer = 0.5f;
-            if (health <= 0) {
+            if (updatedHealth <= 0) {
                 hp.setHealth(0);
                 killPlayer();
             } else {
-                hp.setHealth(health);
+                hp.setHealth(updatedHealth);
             }
+
             Debug.Log("player lost " + lostHealth + " health.");
         }
         else {

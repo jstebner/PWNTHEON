@@ -51,7 +51,7 @@ public class playerAbilities : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if  (Input.GetKey(abilityKey) && movement.state == movement.State.Normal){
             if (selected == 0)
