@@ -8,9 +8,9 @@ public class movement : MonoBehaviour
     private Camera cam;
     private Vector2 mousePos;
     private float moveSpeed = 25f;
-    private float maxDodgeSpeed = 150f;
+    private float maxDodgeSpeed = 30f;
     private float dodgeTimer = 0f;
-    private const float TimeDodge = 0.08f;
+    private const float TimeDodge = 0.8f;
     public Rigidbody2D playerRB;
     private Vector2 dodgeDir;
     private playerHealth playerHealth;
@@ -40,7 +40,6 @@ public class movement : MonoBehaviour
         slider.minValue = 0f;
         slider.maxValue = 3f;
         slider.value = 3f;
-        weapon.flipX = true;
     }
 
     // Update is called once per frame
@@ -88,9 +87,10 @@ public class movement : MonoBehaviour
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 lookDirection = mousePos - (Vector2)transform.position;
+        Debug.Log(lookDirection.x);
         if (lookDirection.x > 0f) {
             playerSprite.flipX = true;
-            weapon.sortingOrder = 1;
+            weapon.sortingOrder = 2;
         } else if (lookDirection.x < 0f) {
             playerSprite.flipX = false;
             weapon.sortingOrder = 0;
@@ -125,7 +125,13 @@ public class movement : MonoBehaviour
             return;
         }
         if (dodgeTimer >= 0){
-            float direction = playerSprite.flipX ? 1f : -1f;
+            float direction = 1f;
+            if (dodgeDir.x == 0) {
+                direction = playerSprite.flipX ? 1f : -1f;
+            }
+            else {
+                direction = dodgeDir.x / Mathf.Abs(dodgeDir.x);
+            }
             transform.Rotate(new Vector3(0, 0, -360 * (Time.deltaTime/TimeDodge) * direction));
             playerRB.AddForce(dodgeDir * maxDodgeSpeed);
             dodgeTimer -= Time.deltaTime;
