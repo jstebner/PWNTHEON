@@ -9,19 +9,31 @@ struct FireBallStruct {
     public Vector3 direction;
 }
 
+struct SlamStruct {
+    public GameObject slam;
+    public float increaseSizeRate;
+}
+
 public class BossController : MonoBehaviour
 {
     public healthbar hp;
     private int health;
     private int maxHealth;
     public bool canTakeDamage;
-    public GameObject bossFireball;
+    public GameObject bossFireballPrefab;
+    public GameObject slamPrefab;
+    public GameObject soundBlastPrefab;
     private float bossFireballSpeed = 5f;
+    private float physicalSlamSizeIncreaseRate = 12f;
+    private float abilitySlamSizeIncreaseRate = 7f;
     private List<FireBallStruct> activeFireballs = new List<FireBallStruct>();
+    private List<SlamStruct> activeSlams = new List<SlamStruct>();
     MenuController menuController;
+    private GameObject player;
 
     void Awake() {
         menuController = GameObject.Find("Menus").GetComponent<MenuController>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Start is called before the first frame update
@@ -34,6 +46,17 @@ public class BossController : MonoBehaviour
 
     void FixedUpdate() {
         moveFireballs();
+        updateSlams();
+        if (Input.GetKey(KeyCode.J)) {
+            if (activeSlams.Count == 0) {
+                newPhysicalSlam();
+            }
+        }
+        if (Input.GetKey(KeyCode.K)) {
+            if (activeSlams.Count == 0) {
+                newSoundBlast();
+            }
+        }
     }
 
     public void damageBoss(int lostHealth) {
@@ -55,7 +78,7 @@ public class BossController : MonoBehaviour
 
     public void newBossFireball(Vector3 playerPos, Vector3 bossPos) {
         Vector3 direction = (playerPos - bossPos).normalized;
-        GameObject fireballObject = Instantiate(bossFireball, bossPos + direction, Quaternion.identity);
+        GameObject fireballObject = Instantiate(bossFireballPrefab, bossPos + direction, Quaternion.identity);
         Physics2D.IgnoreCollision(fireballObject.GetComponent<Collider2D>(), this.GetComponent<Collider2D>());
         FireBallStruct currentFireball;
         currentFireball.fireball = fireballObject;
@@ -71,6 +94,44 @@ public class BossController : MonoBehaviour
             } else {
                 activeFireballs[i].fireball.transform.position += activeFireballs[i].direction * bossFireballSpeed * Time.deltaTime;
             }
+        }
+    }
+
+    private void updateSlams() {
+        float incSizeRate = 0f;
+        for (int i = activeSlams.Count - 1; i >= 0; i--) {
+            if (activeSlams[i].slam.transform.localScale.x >= 37) {
+                Destroy(activeSlams[i].slam);
+                activeSlams.RemoveAt(i);
+            } else {
+                incSizeRate = activeSlams[i].increaseSizeRate;
+                activeSlams[i].slam.transform.localScale += new Vector3(incSizeRate * Time.deltaTime, 0.389375f * incSizeRate * Time.deltaTime, incSizeRate * Time.deltaTime);
+                SlamStruct slam = activeSlams[i];
+                slam.increaseSizeRate += 0.1f;
+                activeSlams[i] = slam;
+            }
+        }
+    }
+
+    public void newPhysicalSlam() {
+        GameObject slamObject = Instantiate(slamPrefab, new Vector2(0.14f, 0.62f), Quaternion.identity);
+        SlamStruct currentSlam;
+        currentSlam.slam = slamObject;
+        currentSlam.increaseSizeRate = physicalSlamSizeIncreaseRate;
+        activeSlams.Add(currentSlam);
+    }
+
+    public void newSoundBlast() {
+        GameObject slamObject = Instantiate(soundBlastPrefab, new Vector2(0.14f, 0.62f), Quaternion.identity);
+        SlamStruct currentSlam;
+        currentSlam.slam = slamObject;
+        currentSlam.increaseSizeRate = abilitySlamSizeIncreaseRate;
+        activeSlams.Add(currentSlam);
+    }
+
+    public void meleeAttack() {
+        if (Vector3.Distance(player.transform.position, transform.position) <= 2.5f) {
+            player.GetComponent<playerHealth>().damagePlayer(30, false);
         }
     }
 }
