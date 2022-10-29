@@ -54,10 +54,10 @@ public class movement : MonoBehaviour
             handleDodge();
         }
         if (immunityTime > 0) {
-            playerHealth.canTakeDamage = false;
+            playerHealth.dodging = true;
             immunityTime -= Time.deltaTime;
         } else {
-            playerHealth.canTakeDamage = true;
+            playerHealth.dodging = false;
         }
         //transform.Translate(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime, 0f);
     }
