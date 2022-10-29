@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class playerWeapon : MonoBehaviour
 {
+    private Camera cam;
+    private Vector3 mousePos;
+    public SpriteRenderer weapon;
+    public Transform sword;
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
@@ -17,10 +21,18 @@ public class playerWeapon : MonoBehaviour
         slider.minValue = 0f;
         slider.maxValue = 3f;
         slider.value = 3f;
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        sword = this.gameObject.transform.GetChild(0);
     }
     // Update is called once per frame
     void FixedUpdate()
     {
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 rotation = mousePos - sword.transform.position;
+        float rotZ = Mathf.Atan2(rotation.y,rotation.x) * Mathf.Rad2Deg - 90;
+        sword.transform.rotation = Quaternion.Euler(0,0,rotZ);
+        attackPoint.position = Vector3.MoveTowards(attackPoint.position, weapon.bounds.center, 1);
+        
         if (Input.GetKey(KeyCode.Mouse0)) {
             attack();
         }
