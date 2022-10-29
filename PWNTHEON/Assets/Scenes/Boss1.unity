@@ -557,7 +557,6 @@ GameObject:
   m_Component:
   - component: {fileID: 139148016}
   - component: {fileID: 139148017}
-  - component: {fileID: 139148018}
   m_Layer: 0
   m_Name: Abilities
   m_TagString: Untagged
@@ -599,33 +598,6 @@ SortingGroup:
   m_SortingLayerID: 1168729201
   m_SortingLayer: 1
   m_SortingOrder: 1
---- !u!114 &139148018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139148015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e16d586e0b7aa2440bc92080c143d50c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityKey: 32
-  abilityNextKey: 9
-  fireballImg: {fileID: 73554814}
-  fireballSelect: {fileID: 1021399013}
-  countdown1: {fileID: 551898620}
-  cooldown1: 5
-  rollImg: {fileID: 1284958493}
-  rollSelect: {fileID: 1496570162}
-  countdown2: {fileID: 663971681}
-  cooldown2: 5
-  healImg: {fileID: 2044136055}
-  healSelect: {fileID: 425205764}
-  countdown3: {fileID: 1752315088}
-  cooldown3: 5
-  hp: {fileID: 664485526}
 --- !u!1 &165809837
 GameObject:
   m_ObjectHideFlags: 0
@@ -4470,6 +4442,33 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1200545208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200545183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e16d586e0b7aa2440bc92080c143d50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityKey: 32
+  abilityNextKey: 9
+  fireballImg: {fileID: 73554814}
+  fireballSelect: {fileID: 1021399013}
+  countdown1: {fileID: 551898620}
+  cooldown1: 5
+  rollImg: {fileID: 1284958493}
+  rollSelect: {fileID: 1496570162}
+  countdown2: {fileID: 663971681}
+  cooldown2: 5
+  healImg: {fileID: 2044136055}
+  healSelect: {fileID: 425205764}
+  countdown3: {fileID: 1752315088}
+  cooldown3: 5
+  hp: {fileID: 664485526}
 --- !u!1001 &1221337214
 PrefabInstance:
   m_ObjectHideFlags: 0
