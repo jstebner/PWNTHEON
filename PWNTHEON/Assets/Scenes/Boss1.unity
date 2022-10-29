@@ -4422,8 +4422,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d65c32a10fbb6c741bb4bae0952638df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 165809840}
-  sword: {fileID: 0}
+  sword: {fileID: 165809840}
+  weapon: {fileID: 200419896}
   attackPoint: {fileID: 1499850119}
   attackRange: 0.4
   enemyLayers:
