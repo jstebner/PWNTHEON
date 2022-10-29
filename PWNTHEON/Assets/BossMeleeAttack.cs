@@ -11,7 +11,7 @@ public class BossMeleeAttack : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         boss = animator.GetComponent<BossController>();
-        waitTimeBeforeMelee = 0.75f;
+        waitTimeBeforeMelee = 0.10f;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -20,7 +20,7 @@ public class BossMeleeAttack : StateMachineBehaviour
         if (waitTimeBeforeMelee <= 0) {
             boss.meleeAttack();
             waitTimeBeforeMelee = 5f;
-            animator.SetTrigger("Default Attack");
+            animator.SetTrigger("Return To Idle");
         }
         waitTimeBeforeMelee -= Time.deltaTime;
     }
@@ -28,6 +28,6 @@ public class BossMeleeAttack : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.ResetTrigger("Default Attack");
+        animator.ResetTrigger("Return To Idle");
     }
 }
