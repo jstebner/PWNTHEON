@@ -8,7 +8,9 @@ public class playerHealth : MonoBehaviour
     private int health;
     private int maxHealth;
     public bool canTakeDamage;
+    public bool dodging;
     MenuController menuController;
+    private float immunityTimer = 0f;
     // Start is called before the first frame update
 
     void Awake() {
@@ -23,20 +25,37 @@ public class playerHealth : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            damagePlayer(10);
+        if (immunityTimer > 0) {
+            immunityTimer -= Time.deltaTime;
+        } else {
+            canTakeDamage = true;
         }
     }
-    public void damagePlayer(int lostHealth) {
-        if (canTakeDamage) {
+
+    public void damagePlayer(int lostHealth, bool ability) {
+        if (!canTakeDamage) {
+           // Debug.Log("Immunity time prevented damage.");
+            return;
+        }
+        if (!dodging || ability) {
+            // if (ability) {
+            //     Debug.Log("player was hit by ability");
+            //     if (dodging) {
+            //         Debug.Log("damage was NOT prevented while dodging");
+            //     }
+            // }
             health -= lostHealth;
+            canTakeDamage = false;
+            immunityTimer = 0.5f;
             if (health <= 0) {
                 hp.setHealth(0);
                 killPlayer();
             } else {
                 hp.setHealth(health);
             }
-        } else {
+            Debug.Log("player lost " + lostHealth + " health.");
+        }
+        else {
             Debug.Log("Dodged!");
         }
     }
