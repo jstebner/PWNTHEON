@@ -13,6 +13,7 @@ public class playerAbilities : MonoBehaviour
     private int selected = 0;
     private float keyDelayMax = 0.25f;
     private float keyDelay;
+    private movement movement;
 
     [Header("Fireball")]
     public Image fireballImg;
@@ -46,12 +47,13 @@ public class playerAbilities : MonoBehaviour
         countdown2.text = "";
         healImg.fillAmount = 0;
         countdown3.text = "";
+        movement = GetComponent<movement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if  (Input.GetKey(abilityKey)){
+        if  (Input.GetKey(abilityKey) && movement.state == movement.State.Normal){
             if (selected == 0)
                 Fireball();
             else if (selected == 1)
@@ -125,9 +127,11 @@ public class playerAbilities : MonoBehaviour
     }
 
     void FatRoll() {
-        if (isCooldown2 == false){
+        if (isCooldown2 == false && !(movement.moveX == 0 && movement.moveY == 0)){
             isCooldown2 = true;
             rollImg.fillAmount = 1;
+            movement.FatRolling = true;
+            movement.startDodge();
         }
     }
 

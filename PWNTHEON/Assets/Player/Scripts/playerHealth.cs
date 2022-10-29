@@ -10,7 +10,7 @@ public class playerHealth : MonoBehaviour
     public bool canTakeDamage;
     public bool dodging;
     MenuController menuController;
-    private float immunityTimer = 0f;
+    public float immunityTimer = 0f;
     // Start is called before the first frame update
 
     void Awake() {
@@ -25,6 +25,7 @@ public class playerHealth : MonoBehaviour
     }
 
     void FixedUpdate() {
+        
         if (immunityTimer > 0) {
             immunityTimer -= Time.deltaTime;
         } else {
