@@ -14,7 +14,7 @@ public class BossSoundBlast : MonoBehaviour
                 }
             }
             if (!behindPillar) {
-                col.gameObject.GetComponent<playerHealth>().damagePlayer(25, false);
+                col.gameObject.GetComponent<playerHealth>().damagePlayer(25, true);
                 Physics2D.IgnoreCollision(col, this.GetComponent<Collider2D>());
                 behindPillar = false;
             } else {

@@ -88,7 +88,7 @@ public class movement : MonoBehaviour
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 lookDirection = mousePos - (Vector2)transform.position;
-        Debug.Log(lookDirection.x);
+        //Debug.Log(lookDirection.x);
         if (lookDirection.x > 0f) {
             playerSprite.flipX = true;
             weapon.sortingOrder = 1;
