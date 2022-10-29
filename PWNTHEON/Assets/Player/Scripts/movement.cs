@@ -11,6 +11,7 @@ public class movement : MonoBehaviour
     private float maxDodgeSpeed = 30f;
     private float dodgeTimer = 0f;
     private const float TimeDodge = 0.8f;
+    
     public Rigidbody2D playerRB;
     private Vector2 dodgeDir;
     private playerHealth playerHealth;
