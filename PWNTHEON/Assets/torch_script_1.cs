@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class fire_script : MonoBehaviour
+public class torch_script_1 : MonoBehaviour
 {
 
-    private float speed = 25.0f;
-    private float amount = 3.0f;
+    private float speed = 60.0f;
+    private float amount = 1.0f;
     Vector3 startPos;
     Vector3 newPos;
     
@@ -20,7 +20,7 @@ public class fire_script : MonoBehaviour
     void Update()
     {
         newPos[0] = startPos.x + Mathf.Sin(Time.time * speed) * amount * 0.85f;
-        newPos[1] = startPos.y + Mathf.Cos(Time.time * speed * 1.618f) * amount;
+        newPos[1] = startPos.y + Mathf.Cos(Time.time * speed * 0.618f) * amount;
         newPos[2] = startPos.z;
         transform.position = newPos;
     }

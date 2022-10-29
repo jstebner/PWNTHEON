@@ -8,6 +8,7 @@ public class star_script : MonoBehaviour
     private float speed = 15.0f;
     private float amount = 0.4f;
     Vector3 startPos;
+    Vector3 newPos;
     
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,9 @@ public class star_script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 newPos = new Vector3(startPos.x + Mathf.Sin(Time.time * speed) * amount, startPos.y + Mathf.Cos(Time.time * speed * 1.618f) * amount, startPos.z);
+        newPos[0] = startPos.x + Mathf.Sin(Time.time * speed) * amount * 0.85f;
+        newPos[1] = startPos.y + Mathf.Cos(Time.time * speed * 1.618f) * amount;
+        newPos[2] = startPos.z;
         transform.position = newPos;
     }
 }
