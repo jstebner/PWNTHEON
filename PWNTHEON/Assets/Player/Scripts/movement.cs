@@ -90,7 +90,7 @@ public class movement : MonoBehaviour
         Debug.Log(lookDirection.x);
         if (lookDirection.x > 0f) {
             playerSprite.flipX = true;
-            weapon.sortingOrder = 2;
+            weapon.sortingOrder = 1;
         } else if (lookDirection.x < 0f) {
             playerSprite.flipX = false;
             weapon.sortingOrder = 0;
