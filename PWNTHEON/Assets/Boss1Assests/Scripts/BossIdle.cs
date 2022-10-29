@@ -2,32 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossMeleeAttack : StateMachineBehaviour
+public class BossIdle : StateMachineBehaviour
 {
-    private float waitTimeBeforeMelee;
-    BossController boss;
+    private float idleWaitTime = 5f;
+    
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        boss = animator.GetComponent<BossController>();
-        waitTimeBeforeMelee = 0.75f;
+       idleWaitTime = 2f;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (waitTimeBeforeMelee <= 0) {
-            boss.meleeAttack();
-            waitTimeBeforeMelee = 5f;
+        if (idleWaitTime <= 0) {
             animator.SetTrigger("Default Attack");
+            idleWaitTime = 2f;
         }
-        waitTimeBeforeMelee -= Time.deltaTime;
+        idleWaitTime -= Time.deltaTime;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.ResetTrigger("Default Attack");
+       animator.ResetTrigger("Default Attack");
     }
 }
