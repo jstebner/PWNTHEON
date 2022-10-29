@@ -1101,7 +1101,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "W, A, S, D \t- Movement\nLeft Click\t\t- Attack\nShift       \t  \t- Dodge\nEscape
-    \t \t- pause/unpause"
+    \t \t- pause/unpause\nTab/Scroll\t\t- Change Ability\nSpace\t\t- Use Ability"
 --- !u!222 &301987921
 CanvasRenderer:
   m_ObjectHideFlags: 0
