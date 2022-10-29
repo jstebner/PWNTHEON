@@ -8,12 +8,23 @@ public class movement : MonoBehaviour
     private Camera cam;
     private Vector2 mousePos;
     private float moveSpeed = 25f;
-    private float maxDodgeSpeed = 30f;
+    public float moveX = 0f;
+    public float moveY = 0f;
+
     private float dodgeTimer = 0f;
+    private float dodgeSpeed = 30f;
+    private float rollAmount = 360f;
+    private float maxDodgeTime = 0.8f;
     private const float TimeDodge = 0.8f;
+    private const float TimeFatRoll = 1.6f;
+    private const float maxDodgeSpeed = 30f;
+    private const float maxFatRollSpeed = 15f;
+    private const float maxRollAmount = 360f;
+    private const float maxFatRollAmount = 720f;
+    public bool FatRolling = false;
     
     public Rigidbody2D playerRB;
-    private Vector2 dodgeDir;
+    public Vector2 dodgeDir;
     private playerHealth playerHealth;
     private SpriteRenderer playerSprite;
     public SpriteRenderer weapon;
@@ -24,8 +35,8 @@ public class movement : MonoBehaviour
     public Slider slider;
     public Image fill;
 
-    private State state;
-    private enum State {
+    public State state;
+    public enum State {
         Normal,
         Dodge,
     }
@@ -48,6 +59,7 @@ public class movement : MonoBehaviour
     {
         if (state == State.Normal) {
             handleMovement();
+            playerHealth.canTakeDamage = true;
             slider.value += Time.deltaTime;
         } 
         else if (state == State.Dodge) {
@@ -58,13 +70,14 @@ public class movement : MonoBehaviour
             immunityTime -= Time.deltaTime;
         } else {
             playerHealth.dodging = false;
+            playerHealth.canTakeDamage = true;
         }
         //transform.Translate(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime, 0f);
     }
 
     void handleMovement() {
-        float moveX = 0f;
-        float moveY = 0f;
+        moveX = 0f;
+        moveY = 0f;
         if (Input.GetKey(KeyCode.D)) {
             moveX = 1f;
         }
@@ -78,12 +91,7 @@ public class movement : MonoBehaviour
             moveY = -1f;
         }
         if (Input.GetKey(KeyCode.LeftShift)) {
-            if (slider.value == slider.maxValue) {
-                dodgeDir = new Vector2(moveX, moveY).normalized;
-                dodgeTimer = TimeDodge;
-                resetDodgeCooldown();
-                state = State.Dodge;
-            }
+            startDodge();
         }
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -116,6 +124,31 @@ public class movement : MonoBehaviour
 
     }
 
+    public void startDodge(){
+        if (FatRolling) {
+            dodgeDir = new Vector2(moveX, moveY).normalized;
+            dodgeTimer = TimeFatRoll;
+            maxDodgeTime = TimeFatRoll;
+            dodgeSpeed = maxFatRollSpeed;
+            rollAmount = maxFatRollAmount;
+            playerHealth.canTakeDamage = false;
+            playerHealth.immunityTimer = TimeFatRoll;
+            FatRolling = false;
+            maxImmunityTime = TimeFatRoll;
+            state = State.Dodge;
+        } else if (slider.value == slider.maxValue) {
+            dodgeDir = new Vector2(moveX, moveY).normalized;
+            dodgeTimer = TimeDodge;
+            maxDodgeTime = TimeDodge;
+            dodgeSpeed = maxDodgeSpeed;
+            rollAmount = maxRollAmount;
+            maxImmunityTime = TimeDodge;
+            resetDodgeCooldown();
+            state = State.Dodge;
+        }
+        
+    }
+
     void handleDodge() {
         if (dodgeDir.x == 0 && dodgeDir.y == 0) {
             //no direction
@@ -128,13 +161,13 @@ public class movement : MonoBehaviour
         if (dodgeTimer >= 0){
             float direction = 1f;
             if (dodgeDir.x == 0) {
-                direction = playerSprite.flipX ? 1f : -1f;
+                direction = playerSprite.flipX ? -1f : 1f;
             }
             else {
-                direction = dodgeDir.x / Mathf.Abs(dodgeDir.x);
+                direction = -1f * dodgeDir.x / Mathf.Abs(dodgeDir.x);
             }
-            transform.Rotate(new Vector3(0, 0, -360 * (Time.deltaTime/TimeDodge) * direction));
-            playerRB.AddForce(dodgeDir * maxDodgeSpeed);
+            transform.Rotate(new Vector3(0, 0, rollAmount * (Time.deltaTime/maxDodgeTime) * direction));
+            playerRB.AddForce(dodgeDir * dodgeSpeed);
             dodgeTimer -= Time.deltaTime;
             // Add rotation here
         } else {
