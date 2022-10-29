@@ -4,34 +4,35 @@ using UnityEngine;
 
 public class BossPhaseOne : StateMachineBehaviour
 {
-    private float timeSinceLastMagicBullets = 0f;
     private int magicBulletVolleys = 3;
-    private bool alternateSlamAndSoundBlast = true;
+    private bool alternateSlamAndSoundBlast = false;
+    private string nextAttack;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        nextAttack = "None";
         magicBulletVolleys--;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (magicBulletVolleys <= 0) {
-            if (alternateSlamAndSoundBlast) {
-                animator.SetTrigger("Physical Slam");
-            } else {
-                animator.SetTrigger("Sound Blast");
-            }
-            alternateSlamAndSoundBlast = !alternateSlamAndSoundBlast;
-            magicBulletVolleys = 3;
+        if (nextAttack != "None") {
+            animator.SetTrigger(nextAttack);
         } else {
-            if (timeSinceLastMagicBullets >= 1.5f) {
-                timeSinceLastMagicBullets = 0f;
-                animator.SetTrigger("Default Attack");
+            if (magicBulletVolleys <= 0) {
+                alternateSlamAndSoundBlast = !alternateSlamAndSoundBlast;
+                magicBulletVolleys = 3;
+                if (alternateSlamAndSoundBlast) {
+                    nextAttack = "Physical Slam";
+                } else {
+                    nextAttack = "Sound Blast";
+                }
+            } else {
+                nextAttack = "Default Attack";
             }
         }
-        timeSinceLastMagicBullets += Time.deltaTime;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
@@ -39,5 +40,6 @@ public class BossPhaseOne : StateMachineBehaviour
     {
        animator.ResetTrigger("Default Attack");
        animator.ResetTrigger("Physical Slam");
+       animator.ResetTrigger("Sound Blast");
     }
 }

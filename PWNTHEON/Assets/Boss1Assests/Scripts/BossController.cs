@@ -29,9 +29,11 @@ public class BossController : MonoBehaviour
     private List<FireBallStruct> activeFireballs = new List<FireBallStruct>();
     private List<SlamStruct> activeSlams = new List<SlamStruct>();
     MenuController menuController;
+    private GameObject player;
 
     void Awake() {
         menuController = GameObject.Find("Menus").GetComponent<MenuController>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Start is called before the first frame update
@@ -125,5 +127,11 @@ public class BossController : MonoBehaviour
         currentSlam.slam = slamObject;
         currentSlam.increaseSizeRate = abilitySlamSizeIncreaseRate;
         activeSlams.Add(currentSlam);
+    }
+
+    public void meleeAttack() {
+        if (Vector3.Distance(player.transform.position, transform.position) <= 2.5f) {
+            player.GetComponent<playerHealth>().damagePlayer(30, false);
+        }
     }
 }

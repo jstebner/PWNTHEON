@@ -1825,10 +1825,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9ed1c5d315a2fc4db3b605b69d753a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: {fileID: 0}
+  hp: {fileID: 1292469100}
   canTakeDamage: 0
   bossFireballPrefab: {fileID: 342291751927479896, guid: ff1d763827d356b4aae7209138fe14e5, type: 3}
   slamPrefab: {fileID: 1080800654025324995, guid: 0240b3d0a0a2da74eb45353cbc664fc8, type: 3}
+  soundBlastPrefab: {fileID: 1080800654025324995, guid: f2a3a7db8170f9d4683c02f77b031229, type: 3}
 --- !u!1 &600244730
 GameObject:
   m_ObjectHideFlags: 0
@@ -3858,6 +3859,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fffd2db3d7aa084d82393c7b4654623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1292469100 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 827670666320908893, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
+  m_PrefabInstance: {fileID: 463124263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e10463920366b04b939c75738d99570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1318222810
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4232,10 +4244,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9ed1c5d315a2fc4db3b605b69d753a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: {fileID: 0}
+  hp: {fileID: 1292469100}
   canTakeDamage: 0
   bossFireballPrefab: {fileID: 342291751927479896, guid: ff1d763827d356b4aae7209138fe14e5, type: 3}
   slamPrefab: {fileID: 1080800654025324995, guid: 0240b3d0a0a2da74eb45353cbc664fc8, type: 3}
+  soundBlastPrefab: {fileID: 1080800654025324995, guid: f2a3a7db8170f9d4683c02f77b031229, type: 3}
 --- !u!1 &1499850118
 GameObject:
   m_ObjectHideFlags: 0
