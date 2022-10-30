@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-
+        Time.timeScale = 1f;
     }
 
     public void PlayGame()
