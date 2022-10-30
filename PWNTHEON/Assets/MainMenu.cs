@@ -5,9 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    Camera mainCamera;
+    
+    void Start()
+    {
+        mainCamera = GetComponent<Camera> ();
+    }
+
     public void PlayGame()
     {
         Debug.Log("Play Game!");
+        for (int i=0; i < 100; i++) {
+            mainCamera.orthographicSize += 1;
+
+        }
         SceneManager.LoadScene("Boss1");
     }
 
