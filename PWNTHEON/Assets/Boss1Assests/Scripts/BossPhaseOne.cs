@@ -55,10 +55,12 @@ public class BossPhaseOne : StateMachineBehaviour
     private float meleeCooldown = 2f;
     private float magicBulletVolleyCooldown = 2f;
     private float tooCloseToBossCooldown = 0.20f;
-    private const float maxMagicBulletCooldownTime = 0.25f;
-    private const float maxMeleeCooldownTime = 2f;
-    private const float maxMagicBulletVolleyCooldownTime = 2f;
-    private const float maxTooCloseToBossCooldownTime = 0.20f;
+    private float maxMagicBulletCooldownTime = 0.25f;
+    private float maxMeleeCooldownTime = 2f;
+    private float maxMagicBulletVolleyCooldownTime = 2f;
+    private float maxTooCloseToBossCooldownTime = 0.20f;
+    private int maxBulletsInVolley = 3;
+    private int maxMagicBulletVolleys = 2;
 
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -67,11 +69,19 @@ public class BossPhaseOne : StateMachineBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         boss = animator.GetComponent<BossController>();
         nextAttack = "None";
+        maxMagicBulletCooldownTime = boss.maxMagicBulletCooldownTime;
+        maxMeleeCooldownTime = boss.maxMeleeCooldownTime;
+        maxMagicBulletVolleyCooldownTime = boss.maxMagicBulletVolleyCooldownTime;
+        maxTooCloseToBossCooldownTime = boss.maxTooCloseToBossCooldownTime;
+        maxBulletsInVolley = boss.maxBulletsInVolley;
+        maxMagicBulletVolleys = boss.maxMagicBulletVolleys;
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        Debug.Log($"{maxMagicBulletCooldownTime} {maxMeleeCooldownTime} {maxMagicBulletVolleyCooldownTime} {maxTooCloseToBossCooldownTime}");
         if (nextAttack != "None") {
             animator.SetTrigger(nextAttack);
         } else {
@@ -100,7 +110,7 @@ public class BossPhaseOne : StateMachineBehaviour
                     }
                 } 
                 if (remainingBulletsInVolley <= 0) {
-                    remainingBulletsInVolley = 3;
+                    remainingBulletsInVolley = maxBulletsInVolley;
                     magicBulletVolleyCooldown = maxMagicBulletVolleyCooldownTime;
                     magicBulletVolleys--;
                 }
@@ -110,7 +120,7 @@ public class BossPhaseOne : StateMachineBehaviour
                 } else {
                     nextAttack = "Sound Blast";
                 }
-                magicBulletVolleys = 2;
+                magicBulletVolleys = maxMagicBulletVolleys;
                 alternateSlamAndSoundBlast = !alternateSlamAndSoundBlast;
             }
             magicBulletCooldown -= Time.deltaTime;

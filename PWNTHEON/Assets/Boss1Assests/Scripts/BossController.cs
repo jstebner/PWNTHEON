@@ -30,10 +30,20 @@ public class BossController : MonoBehaviour
     private List<SlamStruct> activeSlams = new List<SlamStruct>();
     MenuController menuController;
     private GameObject player;
+    private GameObject boss;
+    private bool switchedPhase = false;
+
+    public float maxMagicBulletCooldownTime = 0.25f;
+    public float maxMeleeCooldownTime = 2f;
+    public float maxMagicBulletVolleyCooldownTime = 2f;
+    public float maxTooCloseToBossCooldownTime = 0.20f;
+    public int maxBulletsInVolley = 3;
+    public int maxMagicBulletVolleys = 2;
 
     void Awake() {
         menuController = GameObject.Find("Menus").GetComponent<MenuController>();
         player = GameObject.FindGameObjectWithTag("Player");
+        boss = GameObject.Find("Greuhl");
     }
 
     // Start is called before the first frame update
@@ -47,15 +57,9 @@ public class BossController : MonoBehaviour
     void FixedUpdate() {
         moveFireballs();
         updateSlams();
-        if (Input.GetKey(KeyCode.J)) {
-            if (activeSlams.Count == 0) {
-                newPhysicalSlam();
-            }
-        }
-        if (Input.GetKey(KeyCode.K)) {
-            if (activeSlams.Count == 0) {
-                newSoundBlast();
-            }
+        if (hp.getHeath() <= 90 && !switchedPhase) {
+            switchPhase();
+            switchedPhase = true;
         }
     }
 
@@ -133,5 +137,15 @@ public class BossController : MonoBehaviour
         if (Vector3.Distance(player.transform.position, transform.position) <= 2.5f) {
             player.GetComponent<playerHealth>().damagePlayer(30, false);
         }
+    }
+
+    public void switchPhase() {
+        maxMagicBulletCooldownTime = 0.01f;
+        maxMeleeCooldownTime = 1.5f;
+        maxMagicBulletVolleyCooldownTime = 0.5f;
+        maxTooCloseToBossCooldownTime = 0.15f;
+        maxBulletsInVolley = 5;
+        maxMagicBulletVolleys = 1;
+        boss.GetComponent<Animator>().SetTrigger("Switch Phase");
     }
 }
