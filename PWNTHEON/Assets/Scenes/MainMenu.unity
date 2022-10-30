@@ -635,6 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f963afef6abd134cafa92bd44a570fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
 --- !u!114 &633420908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2171,8 +2172,8 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: e0c7fe9a0f114fb4e8c33f251e212746, type: 3}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 21300000, guid: e0c7fe9a0f114fb4e8c33f251e212746, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: e0c7fe9a0f114fb4e8c33f251e212746, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal

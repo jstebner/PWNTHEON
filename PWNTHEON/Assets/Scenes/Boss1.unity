@@ -4464,18 +4464,19 @@ MonoBehaviour:
   abilityNextKey: 9
   cam: {fileID: 1269818761}
   fireballImg: {fileID: 73554814}
-  fireballSelect: {fileID: 1021399013}
   countdown1: {fileID: 551898620}
   cooldown1: 5
   rollImg: {fileID: 1284958493}
-  rollSelect: {fileID: 1496570162}
   countdown2: {fileID: 663971681}
   cooldown2: 5
   healImg: {fileID: 2044136055}
-  healSelect: {fileID: 425205764}
   countdown3: {fileID: 1752315088}
   cooldown3: 5
   hp: {fileID: 664485526}
+  selections:
+  - {fileID: 1021399013}
+  - {fileID: 1496570162}
+  - {fileID: 425205764}
 --- !u!1001 &1221337214
 PrefabInstance:
   m_ObjectHideFlags: 0
