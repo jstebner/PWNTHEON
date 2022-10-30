@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         fov = mainCamera.fieldOfView;
+        Time.timeScale = 1f;
     }
 
     public void PlayGame()
@@ -23,7 +24,7 @@ public class MainMenu : MonoBehaviour
             timeZoom -= Time.deltaTime;
             Debug.Log(timeZoom);
         }
-        
+
         SceneManager.LoadScene("Boss1");
     }
 
