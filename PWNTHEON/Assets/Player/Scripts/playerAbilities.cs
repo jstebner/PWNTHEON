@@ -11,7 +11,7 @@ public class playerAbilities : MonoBehaviour
     private Color selectColor = new Color(255,215,0,100);
     private Color notSelectColor = new Color(0,0,0,100);
     private int selected = 0;
-    private float keyDelayMax = 0.25f;
+    private float keyDelayMax = 0.2f;
     private float keyDelay;
     private movement movement;
     public Camera cam;
@@ -19,43 +19,46 @@ public class playerAbilities : MonoBehaviour
 
     [Header("Fireball")]
     public Image fireballImg;
-    public Image fireballSelect;
     [SerializeField] TextMeshProUGUI countdown1;
     public float cooldown1 = 5;
+    public float fireballSpeed = 100f;
     bool isCooldown1 = false;
     private castFireball castFireball;
 
     [Header("Fat Roll")]
     public Image rollImg;
-    public Image rollSelect;
     [SerializeField] TextMeshProUGUI countdown2;
     public float cooldown2 = 5;
     bool isCooldown2 = false;
 
     [Header("Heal")]
     public Image healImg;
-    public Image healSelect;
     [SerializeField] TextMeshProUGUI countdown3;
     public float cooldown3 = 5;
     bool isCooldown3 = false;
     public healthbar hp;
 
+    public Image[] selections;
+
     // Start is called before the first frame update
     void Start()
     {
         fireballImg.fillAmount = 0;
-        fireballSelect.color = selectColor;
+        selections[0].color = selectColor;
         countdown1.text = "";
         rollImg.fillAmount = 0;
         countdown2.text = "";
         healImg.fillAmount = 0;
         countdown3.text = "";
         movement = GetComponent<movement>();
+        castFireball = GetComponent<castFireball>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        var scroll = Input.GetAxis("Mouse ScrollWheel");
+
         if  (Input.GetKey(abilityKey) && movement.state == movement.State.Normal){
             if (selected == 0)
                 Fireball();
@@ -67,27 +70,19 @@ public class playerAbilities : MonoBehaviour
         if (keyDelay > 0f){
             keyDelay -= Time.deltaTime;
         }
-        if  ((Input.GetKey(abilityNextKey) || Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetAxis("Mouse ScrollWheel") < 0f )&& keyDelay <= 0){
+        else if  ((Input.GetKey(abilityNextKey) || scroll > 0f || scroll < 0f ) && keyDelay <= 0f ){
             keyDelay = keyDelayMax;
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
-                selected = (selected + 2) % 3;
-            else
+            selections[selected].color = notSelectColor;
+            if (scroll > 0f)
+            {
+                selected -= 1;
+                if (selected < 0)
+                    selected += 3;
+            }
+            else if ((scroll < 0f) || Input.GetKey(abilityNextKey))
                 selected = (selected + 1) % 3;
-            if (selected == 0) {
-                fireballSelect.color = selectColor;
-                rollSelect.color = notSelectColor;
-                healSelect.color = notSelectColor;
-            }
-            else if (selected == 1) {
-                fireballSelect.color = notSelectColor;
-                rollSelect.color = selectColor;
-                healSelect.color = notSelectColor;
-            }
-            else if (selected == 2) {
-                fireballSelect.color = notSelectColor;
-                rollSelect.color = notSelectColor;
-                healSelect.color = selectColor;
-            }
+
+            selections[selected].color = selectColor;
         }
         Cooldown();
     }
@@ -127,10 +122,8 @@ public class playerAbilities : MonoBehaviour
             isCooldown1 = true;
             fireballImg.fillAmount = 1;
             mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log(mousePos);
             Vector3 playerPos = transform.position;
-            Debug.Log(playerPos);
-            castFireball.newFireBall(mousePos,playerPos, 100f);
+            castFireball.newFireBall(mousePos,playerPos, fireballSpeed);
         }
     }
 

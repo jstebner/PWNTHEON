@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class castFireball : MonoBehaviour
 {
-    private float fireBallSpeed;
     public GameObject FireBall;
-    private float fireballCooldown;
-    private Camera mainCam;
 
     void Start() 
     {
-        mainCam = Camera.main;
-        fireBallSpeed = 150f;
-        fireballCooldown = 0f;
+
     }
     // Update is called once per frame
     // void FixedUpdate()
