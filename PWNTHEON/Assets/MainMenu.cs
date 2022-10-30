@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    Camera mainCamera;
+    private Camera mainCamera;
     
     void Start()
     {
-        mainCamera = GetComponent<Camera> ();
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     public void PlayGame()
