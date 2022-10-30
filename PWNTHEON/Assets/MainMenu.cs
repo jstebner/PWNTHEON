@@ -5,20 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private Camera mainCamera;
+    public Camera mainCamera;
+    private float fov;
+    private float timeZoom = 10f;
     
     void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        fov = mainCamera.fieldOfView;
     }
 
     public void PlayGame()
     {
         Debug.Log("Play Game!");
-        for (int i=0; i < 100; i++) {
-            mainCamera.orthographicSize += 1;
-
+        while (timeZoom > 0) {
+            mainCamera.fieldOfView -= 100 * Time.deltaTime;
+            timeZoom -= Time.deltaTime;
+            Debug.Log(timeZoom);
         }
+        
         SceneManager.LoadScene("Boss1");
     }
 
