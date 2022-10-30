@@ -14,6 +14,8 @@ public class playerAbilities : MonoBehaviour
     private float keyDelayMax = 0.25f;
     private float keyDelay;
     private movement movement;
+    public Camera cam;
+    private Vector3 mousePos;
 
     [Header("Fireball")]
     public Image fireballImg;
@@ -21,6 +23,7 @@ public class playerAbilities : MonoBehaviour
     [SerializeField] TextMeshProUGUI countdown1;
     public float cooldown1 = 5;
     bool isCooldown1 = false;
+    private castFireball castFireball;
 
     [Header("Fat Roll")]
     public Image rollImg;
@@ -123,6 +126,11 @@ public class playerAbilities : MonoBehaviour
         if (isCooldown1 == false){
             isCooldown1 = true;
             fireballImg.fillAmount = 1;
+            mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+            Debug.Log(mousePos);
+            Vector3 playerPos = transform.position;
+            Debug.Log(playerPos);
+            castFireball.newFireBall(mousePos,playerPos, 100f);
         }
     }
 

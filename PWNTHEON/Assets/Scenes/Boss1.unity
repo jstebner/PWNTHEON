@@ -4456,6 +4456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityKey: 32
   abilityNextKey: 9
+  cam: {fileID: 1269818761}
   fireballImg: {fileID: 73554814}
   fireballSelect: {fileID: 1021399013}
   countdown1: {fileID: 551898620}

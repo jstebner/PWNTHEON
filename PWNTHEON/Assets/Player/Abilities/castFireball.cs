@@ -29,7 +29,7 @@ public class castFireball : MonoBehaviour
     //     }
     // }
 
-    void newFireBall(Vector3 mousePos, Vector3 playerPos, float speed) {
+    public void newFireBall(Vector3 mousePos, Vector3 playerPos, float speed) {
         Vector3 direction = (mousePos - playerPos).normalized;
         GameObject fireballObject = Instantiate(FireBall, playerPos + direction, Quaternion.identity);
         Physics2D.IgnoreCollision(fireballObject.GetComponent<Collider2D>(), this.GetComponent<Collider2D>());
