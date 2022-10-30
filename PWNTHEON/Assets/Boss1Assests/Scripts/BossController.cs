@@ -57,7 +57,7 @@ public class BossController : MonoBehaviour
     void FixedUpdate() {
         moveFireballs();
         updateSlams();
-        if (hp.getHeath() <= 90 && !switchedPhase) {
+        if (hp.getHeath() <= 30 && !switchedPhase) {
             switchPhase();
             switchedPhase = true;
         }
