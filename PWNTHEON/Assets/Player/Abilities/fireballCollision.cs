@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class fireballCollision : MonoBehaviour
 {
-    void OnCollisionEnter2D(Collision2D col) {
-        if (col.gameObject.tag == "Player") {
-            Physics2D.IgnoreCollision(col.collider, col.otherCollider);
+    void OnTriggerEnter2D(Collider2D col) {
+        if (col.gameObject.tag == "Player" || col.gameObject.tag == "Ability") {
+            Debug.Log("Player or ability");
+            Physics2D.IgnoreCollision(col, this.GetComponent<Collider2D>());
+        } else if (col.gameObject.tag == "Boss") {
+            Debug.Log("Boss");
+            col.gameObject.GetComponent<BossController>().damageBoss(10);
+            Destroy(this.gameObject);
         } else {
+            Debug.Log("something elese");
             Destroy(this.gameObject);
         }
     }

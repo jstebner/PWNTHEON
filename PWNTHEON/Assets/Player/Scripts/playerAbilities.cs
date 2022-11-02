@@ -17,13 +17,20 @@ public class playerAbilities : MonoBehaviour
     public Camera cam;
     private Vector3 mousePos;
 
+
+    struct FireBallStruct {
+        public GameObject fireball;
+        public Vector3 direction;
+    }
     [Header("Fireball")]
     public Image fireballImg;
     [SerializeField] TextMeshProUGUI countdown1;
     public float cooldown1 = 5;
-    public float fireballSpeed = 100f;
+    public float fireballSpeed = 5f;
     bool isCooldown1 = false;
-    private castFireball castFireball;
+    public GameObject FireBallPrefab;
+    private FireBallStruct activeFireball;
+    //private castFireball castFireball;
 
     [Header("Fat Roll")]
     public Image rollImg;
@@ -51,7 +58,7 @@ public class playerAbilities : MonoBehaviour
         healImg.fillAmount = 0;
         countdown3.text = "";
         movement = GetComponent<movement>();
-        castFireball = GetComponent<castFireball>();
+        //castFireball = GetComponent<castFireball>();
     }
 
     // Update is called once per frame
@@ -85,6 +92,7 @@ public class playerAbilities : MonoBehaviour
             selections[selected].color = selectColor;
         }
         Cooldown();
+        moveFireballs();
     }
 
     void Cooldown() {
@@ -117,13 +125,21 @@ public class playerAbilities : MonoBehaviour
         }
     }
 
+    private void moveFireballs() {
+        if (activeFireball.fireball == null || activeFireball.direction == null) {
+            return;
+        }
+        activeFireball.fireball.transform.position += activeFireball.direction * fireballSpeed * Time.deltaTime;
+    
+    }
+
     void Fireball() {
         if (isCooldown1 == false){
             isCooldown1 = true;
             fireballImg.fillAmount = 1;
             mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector3 playerPos = transform.position;
-            castFireball.newFireBall(mousePos,playerPos, fireballSpeed);
+            newFireball(mousePos, playerPos);
         }
     }
 
@@ -147,5 +163,13 @@ public class playerAbilities : MonoBehaviour
                 healAmount = healthMax;
             hp.setHealth((int)(healAmount));
         }
+    }
+
+    private void newFireball(Vector3 mousePos, Vector3 playerPos) {
+        Vector3 direction = (mousePos - playerPos).normalized;
+        GameObject fireballObject = Instantiate(FireBallPrefab, playerPos + direction, Quaternion.identity);
+        Physics2D.IgnoreCollision(fireballObject.GetComponent<Collider2D>(), this.GetComponent<Collider2D>());
+        activeFireball.fireball = fireballObject;
+        activeFireball.direction = direction;
     }
 }

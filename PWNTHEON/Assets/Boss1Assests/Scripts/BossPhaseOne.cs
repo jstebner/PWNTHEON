@@ -81,7 +81,7 @@ public class BossPhaseOne : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log($"{maxMagicBulletCooldownTime} {maxMeleeCooldownTime} {maxMagicBulletVolleyCooldownTime} {maxTooCloseToBossCooldownTime}");
+        //Debug.Log($"{maxMagicBulletCooldownTime} {maxMeleeCooldownTime} {maxMagicBulletVolleyCooldownTime} {maxTooCloseToBossCooldownTime}");
         if (nextAttack != "None") {
             animator.SetTrigger(nextAttack);
         } else {

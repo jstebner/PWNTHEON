@@ -3,7 +3,16 @@ guid: e16d586e0b7aa2440bc92080c143d50c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cam: {instanceID: 0}
+  - fireballImg: {instanceID: 0}
+  - countdown1: {instanceID: 0}
+  - FireBallPrefab: {fileID: 5278569229779104851, guid: c51dcb82960877d4382ee62bd54b46e3, type: 3}
+  - rollImg: {instanceID: 0}
+  - countdown2: {instanceID: 0}
+  - healImg: {instanceID: 0}
+  - countdown3: {instanceID: 0}
+  - hp: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
