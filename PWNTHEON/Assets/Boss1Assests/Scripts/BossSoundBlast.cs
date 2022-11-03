@@ -7,9 +7,9 @@ public class BossSoundBlast : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col) {
         bool behindPillar = false;
         if (col.gameObject.tag == "Player") {
-            RaycastHit2D[] hits = Physics2D.RaycastAll(col.gameObject.transform.position, GameObject.Find("Greuhl").transform.position);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(col.gameObject.transform.position, (GameObject.Find("Greuhl").transform.position - col.gameObject.transform.position).normalized);
             for (int i = 0; i < hits.Length; i++) {
-                if (hits[i].collider.name == "Square (1)") {
+                if (hits[i].collider.name == "PillarBase1" || hits[i].collider.name == "PillarBase2" || hits[i].collider.name == "PillarBase3" || hits[i].collider.name == "PillarBase4") {
                     behindPillar = true;
                 }
             }
