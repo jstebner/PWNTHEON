@@ -45,6 +45,9 @@ public class playerAbilities : MonoBehaviour
     bool isCooldown3 = false;
     public healthbar hp;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource fireballSoundEffect;
+
     public Image[] selections;
 
     // Start is called before the first frame update
@@ -140,6 +143,7 @@ public class playerAbilities : MonoBehaviour
             mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector3 playerPos = transform.position;
             newFireball(mousePos, playerPos);
+            fireballSoundEffect.Play();
         }
     }
 

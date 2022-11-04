@@ -17,6 +17,10 @@ public class playerWeapon : MonoBehaviour
     public Slider slider;
     public Image fill;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource swordSwipeSoundEffect;
+
+
     void Start() {
         slider.minValue = 0f;
         slider.maxValue = 3f;
@@ -41,6 +45,7 @@ public class playerWeapon : MonoBehaviour
 
     private void attack() {
         if (slider.value == slider.maxValue) {
+            swordSwipeSoundEffect.Play();
             Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
             foreach (Collider2D enemy in hits) {
                 if (enemy.tag == "Boss") {
