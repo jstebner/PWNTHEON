@@ -5,12 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public Camera mainCamera;
-
+    public GameObject options;
     
     void Start()
     {
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         Time.timeScale = 1f;
     }
 
@@ -24,5 +22,12 @@ public class MainMenu : MonoBehaviour
     public void QuitGame() {
         Debug.Log("Quit Game");
         Application.Quit();
+    }
+
+    public void OptionsBtn() {
+        if (options.activeInHierarchy == true)
+            options.SetActive(false);
+        else
+            options.SetActive(true);
     }
 }
