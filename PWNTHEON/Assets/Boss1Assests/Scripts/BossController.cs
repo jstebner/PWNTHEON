@@ -40,6 +40,11 @@ public class BossController : MonoBehaviour
     public int maxBulletsInVolley = 3;
     public int maxMagicBulletVolleys = 2;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource groundSlamSoundEffect;
+    [SerializeField] private AudioSource soundBlastSoundEffect;
+    [SerializeField] private AudioSource magicBulletSoundEffect;
+
     void Awake() {
         menuController = GameObject.Find("Menus").GetComponent<MenuController>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -81,6 +86,8 @@ public class BossController : MonoBehaviour
     }
 
     public void newBossFireball(Vector3 playerPos, Vector3 bossPos) {
+        magicBulletSoundEffect.time = 0.5f;
+        magicBulletSoundEffect.Play();
         Vector3 direction = (playerPos - bossPos).normalized;
         GameObject fireballObject = Instantiate(bossFireballPrefab, bossPos + direction, Quaternion.identity);
         Physics2D.IgnoreCollision(fireballObject.GetComponent<Collider2D>(), this.GetComponent<Collider2D>());
@@ -118,6 +125,9 @@ public class BossController : MonoBehaviour
     }
 
     public void newPhysicalSlam() {
+        if (!groundSlamSoundEffect.isPlaying) {
+            groundSlamSoundEffect.Play();
+        }
         GameObject slamObject = Instantiate(slamPrefab, new Vector2(0.14f, 0.62f), Quaternion.identity);
         SlamStruct currentSlam;
         currentSlam.slam = slamObject;
@@ -126,6 +136,10 @@ public class BossController : MonoBehaviour
     }
 
     public void newSoundBlast() {
+        if (!soundBlastSoundEffect.isPlaying) {
+            Debug.Log("Playing sound blast");
+            soundBlastSoundEffect.Play();
+        }
         GameObject slamObject = Instantiate(soundBlastPrefab, new Vector2(0.14f, 0.62f), Quaternion.identity);
         SlamStruct currentSlam;
         currentSlam.slam = slamObject;
