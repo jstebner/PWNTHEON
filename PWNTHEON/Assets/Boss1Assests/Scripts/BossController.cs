@@ -44,6 +44,7 @@ public class BossController : MonoBehaviour
     [SerializeField] private AudioSource groundSlamSoundEffect;
     [SerializeField] private AudioSource soundBlastSoundEffect;
     [SerializeField] private AudioSource magicBulletSoundEffect;
+    [SerializeField] private AudioSource meleeSwingSoundEffect;
 
     void Awake() {
         menuController = GameObject.Find("Menus").GetComponent<MenuController>();
@@ -149,6 +150,7 @@ public class BossController : MonoBehaviour
 
     public void meleeAttack() {
         if (Vector3.Distance(player.transform.position, transform.position) <= 2.5f) {
+            meleeSwingSoundEffect.Play();
             player.GetComponent<playerHealth>().damagePlayer(30, false);
         }
     }
