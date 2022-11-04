@@ -8,8 +8,8 @@ public class playerAbilities : MonoBehaviour
 {
     public KeyCode abilityKey;
     public KeyCode abilityNextKey;
-    private Color selectColor = new Color(255,215,0,100);
-    private Color notSelectColor = new Color(0,0,0,100);
+    private Color selectColor = new Color(255,215,0,50);
+    private Color notSelectColor = new Color(0,0,0,0);
     private int selected = 0;
     private float keyDelayMax = 0.2f;
     private float keyDelay;
@@ -143,6 +143,7 @@ public class playerAbilities : MonoBehaviour
             mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector3 playerPos = transform.position;
             newFireball(mousePos, playerPos);
+            fireballSoundEffect.time = 0.5f;
             fireballSoundEffect.Play();
         }
     }

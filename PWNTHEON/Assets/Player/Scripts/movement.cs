@@ -10,7 +10,6 @@ public class movement : MonoBehaviour
     private float moveSpeed = 25f;
     public float moveX = 0f;
     public float moveY = 0f;
-    private bool isMoving = false;
 
     private float dodgeTimer = 0f;
     private float dodgeSpeed = 30f;
@@ -32,8 +31,6 @@ public class movement : MonoBehaviour
     public Transform attackPoint;
     private float immunityTime;
     private float maxImmunityTime = TimeDodge;
-    private bool stopRunningSoundEffect = false;
-    private float stopRunningSoundEffectTimer = 0.1f;
 
     public Slider slider;
     public Image fill;
