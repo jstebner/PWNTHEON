@@ -10,6 +10,7 @@ public class movement : MonoBehaviour
     private float moveSpeed = 25f;
     public float moveX = 0f;
     public float moveY = 0f;
+    private bool isMoving = false;
 
     private float dodgeTimer = 0f;
     private float dodgeSpeed = 30f;
@@ -31,6 +32,8 @@ public class movement : MonoBehaviour
     public Transform attackPoint;
     private float immunityTime;
     private float maxImmunityTime = TimeDodge;
+    private bool stopRunningSoundEffect = false;
+    private float stopRunningSoundEffectTimer = 0.1f;
 
     public Slider slider;
     public Image fill;
@@ -40,6 +43,11 @@ public class movement : MonoBehaviour
         Normal,
         Dodge,
     }
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource rollSoundEffect;
+    [SerializeField] private AudioSource runningSoundEffect;
+
 
     // Start is called before the first frame update
     void Start()
@@ -106,8 +114,12 @@ public class movement : MonoBehaviour
         }
         if (moveX == 0 && moveY == 0) {
             //Idle
+            runningSoundEffect.Stop();
             return;
         } else {
+            if (!runningSoundEffect.isPlaying) {
+                runningSoundEffect.Play();
+            }
             playerRB.AddForce(new Vector2(moveX, moveY).normalized * moveSpeed);
             // if (moveX > 0) {
             //     playerSprite.flipX = true;
@@ -136,6 +148,7 @@ public class movement : MonoBehaviour
             FatRolling = false;
             maxImmunityTime = TimeFatRoll;
             state = State.Dodge;
+            rollSoundEffect.Play();
         } else if (slider.value == slider.maxValue) {
             dodgeDir = new Vector2(moveX, moveY).normalized;
             dodgeTimer = TimeDodge;
@@ -145,8 +158,8 @@ public class movement : MonoBehaviour
             maxImmunityTime = TimeDodge;
             resetDodgeCooldown();
             state = State.Dodge;
+            rollSoundEffect.Play();
         }
-        
     }
 
     void handleDodge() {
