@@ -45,6 +45,7 @@ public class BossController : MonoBehaviour
     [SerializeField] private AudioSource soundBlastSoundEffect;
     [SerializeField] private AudioSource magicBulletSoundEffect;
     [SerializeField] private AudioSource meleeSwingSoundEffect;
+    [SerializeField] private AudioSource introSoundEffect;
 
     void Awake() {
         menuController = GameObject.Find("Menus").GetComponent<MenuController>();
@@ -163,5 +164,9 @@ public class BossController : MonoBehaviour
         maxBulletsInVolley = 5;
         maxMagicBulletVolleys = 1;
         boss.GetComponent<Animator>().SetTrigger("Switch Phase");
+    }
+
+    public AudioSource getIntroAudioSource() {
+        return introSoundEffect;
     }
 }
