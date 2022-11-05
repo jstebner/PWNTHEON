@@ -11,16 +11,16 @@ public class movement : MonoBehaviour
     public float moveX = 0f;
     public float moveY = 0f;
 
-    private float dodgeTimer = 0f;
-    private float dodgeSpeed = 30f;
-    private float rollAmount = 360f;
-    private float maxDodgeTime = 0.8f;
-    private const float TimeDodge = 0.8f;
-    private const float TimeFatRoll = 1.6f;
-    private const float maxDodgeSpeed = 30f;
-    private const float maxFatRollSpeed = 15f;
-    private const float maxRollAmount = 360f;
-    private const float maxFatRollAmount = 720f;
+    private float dodgeTimer = 0f;  // timer
+    private const float TimeDodge = 0.5f;  // How long dodge lasts
+    private const float TimeFatRoll = 1f;  // How long Fat Roll lasts
+    private const float maxDodgeSpeed = 40f;  // Speed of dodge; distance traveled
+    private const float maxFatRollSpeed = 20f;  // Speed of Fat Roll; distance traveled
+    private const float maxRollAmount = 360f;  // Degree of dodge roll; num of spins
+    private const float maxFatRollAmount = 720f;  // Degree of Fat Roll roll; num of spins
+    private float dodgeSpeed = maxDodgeSpeed;
+    private float rollAmount = maxRollAmount;
+    private float maxDodgeTime = TimeDodge;
     public bool FatRolling = false;
     
     public Rigidbody2D playerRB;
@@ -55,8 +55,8 @@ public class movement : MonoBehaviour
         playerSprite = GetComponent<SpriteRenderer>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         slider.minValue = 0f;
-        slider.maxValue = 3f;
-        slider.value = 3f;
+        slider.maxValue = 0.5f; //REVIEW: maye change this
+        slider.value = slider.maxValue;
     }
 
     // Update is called once per frame
