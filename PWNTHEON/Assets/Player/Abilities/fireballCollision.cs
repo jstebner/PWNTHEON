@@ -9,7 +9,7 @@ public class fireballCollision : MonoBehaviour
             Physics2D.IgnoreCollision(col, this.GetComponent<Collider2D>());
         } else if (col.gameObject.tag == "Boss") {
             Debug.Log("Boss");
-            col.gameObject.GetComponent<BossController>().damageBoss(10);
+            col.gameObject.GetComponent<BossController>().damageBoss(3);
             Destroy(this.gameObject);
         } else {
             Destroy(this.gameObject);

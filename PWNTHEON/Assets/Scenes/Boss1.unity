@@ -1750,6 +1750,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DodgeMeter
       objectReference: {fileID: 0}
+    - target: {fileID: 827670664973047795, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 827670664973047799, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3512,11 +3516,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 827670664405704276, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 827670664405704276, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 827670664405704276, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3541,6 +3545,10 @@ PrefabInstance:
     - target: {fileID: 827670664973047795, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
       propertyPath: m_Name
       value: AttackMeter
+      objectReference: {fileID: 0}
+    - target: {fileID: 827670664973047795, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 827670664973047799, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
       propertyPath: m_Pivot.x
@@ -4961,8 +4969,8 @@ MonoBehaviour:
   cam: {fileID: 1269818761}
   fireballImg: {fileID: 73554814}
   countdown1: {fileID: 551898620}
-  cooldown1: 5
-  fireballSpeed: 4
+  cooldown1: 10
+  fireballSpeed: 10
   FireBallPrefab: {fileID: 5278569229779104851, guid: c51dcb82960877d4382ee62bd54b46e3, type: 3}
   rollImg: {fileID: 1284958493}
   countdown2: {fileID: 663971681}
