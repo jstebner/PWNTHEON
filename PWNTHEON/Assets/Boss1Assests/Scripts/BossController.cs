@@ -23,7 +23,7 @@ public class BossController : MonoBehaviour
     public GameObject bossFireballPrefab;
     public GameObject slamPrefab;
     public GameObject soundBlastPrefab;
-    private float bossFireballSpeed = 5f;
+    private float bossFireballSpeed = 7f;
     private float physicalSlamSizeIncreaseRate = 12f;
     private float abilitySlamSizeIncreaseRate = 7f;
     private List<FireBallStruct> activeFireballs = new List<FireBallStruct>();

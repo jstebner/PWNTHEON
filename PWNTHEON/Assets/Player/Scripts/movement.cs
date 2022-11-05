@@ -7,14 +7,14 @@ public class movement : MonoBehaviour
 {
     private Camera cam;
     private Vector2 mousePos;
-    private float moveSpeed = 25f;
+    private float moveSpeed = 30f;
     public float moveX = 0f;
     public float moveY = 0f;
 
     private float dodgeTimer = 0f;  // timer
     private const float TimeDodge = 0.5f;  // How long dodge lasts
     private const float TimeFatRoll = 1f;  // How long Fat Roll lasts
-    private const float maxDodgeSpeed = 40f;  // Speed of dodge; distance traveled
+    private const float maxDodgeSpeed = 35f;  // Speed of dodge; distance traveled
     private const float maxFatRollSpeed = 20f;  // Speed of Fat Roll; distance traveled
     private const float maxRollAmount = 360f;  // Degree of dodge roll; num of spins
     private const float maxFatRollAmount = 720f;  // Degree of Fat Roll roll; num of spins
