@@ -1728,11 +1728,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 827670664405704276, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 827670664405704276, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 827670664405704299, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
       propertyPath: m_Color.b
@@ -1865,6 +1865,10 @@ PrefabInstance:
     - target: {fileID: 827670666320908895, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
       propertyPath: m_Name
       value: DodgeMeter
+      objectReference: {fileID: 0}
+    - target: {fileID: 827670666320908895, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87c76ad4523a0f64090c9d299f16f6e1, type: 3}
