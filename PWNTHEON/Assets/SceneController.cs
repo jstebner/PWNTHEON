@@ -5,11 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    private AudioSource music;
-    // Update is called once per frame
-    void Start() {
-        music = FindObjectOfType<AudioSource>();
-    }
+    [SerializeField] private AudioSource music;
     
     void Update()
     {

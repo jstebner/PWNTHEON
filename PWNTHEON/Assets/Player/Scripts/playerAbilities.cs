@@ -25,7 +25,7 @@ public class playerAbilities : MonoBehaviour
     [Header("Fireball")]
     public Image fireballImg;
     [SerializeField] TextMeshProUGUI countdown1;
-    public float cooldown1 = 5;
+    public float cooldown1 = 5f;
     public float fireballSpeed = 5f;
     bool isCooldown1 = false;
     public GameObject FireBallPrefab;
@@ -101,7 +101,7 @@ public class playerAbilities : MonoBehaviour
     void Cooldown() {
         if (isCooldown1 == true) {
             fireballImg.fillAmount -= 1 / cooldown1 * Time.deltaTime;
-            countdown1.text = ((int)Mathf.Round((fireballImg.fillAmount / 1) * 5)).ToString();
+            countdown1.text = ((int)Mathf.Round((fireballImg.fillAmount / 1) * cooldown1)).ToString();
             if (fireballImg.fillAmount <= 0) {
                 fireballImg.fillAmount = 0;
                 countdown1.text = "";
@@ -110,7 +110,7 @@ public class playerAbilities : MonoBehaviour
         }
         if (isCooldown2 == true) {
             rollImg.fillAmount -= 1 / cooldown2 * Time.deltaTime;
-            countdown2.text = ((int)Mathf.Round((rollImg.fillAmount / 1) * 5)).ToString();
+            countdown2.text = ((int)Mathf.Round((rollImg.fillAmount / 1) * cooldown2)).ToString();
             if (rollImg.fillAmount <= 0) {
                 rollImg.fillAmount = 0;
                 countdown2.text = "";
@@ -119,7 +119,7 @@ public class playerAbilities : MonoBehaviour
         }
         if (isCooldown3 == true) {
             healImg.fillAmount -= 1 / cooldown3 * Time.deltaTime;
-            countdown3.text = ((int)Mathf.Round((healImg.fillAmount / 1) * 5)).ToString();
+            countdown3.text = ((int)Mathf.Round((healImg.fillAmount / 1) * cooldown3)).ToString();
             if (healImg.fillAmount <= 0) {
                 healImg.fillAmount = 0;
                 countdown3.text = "";
